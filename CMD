@@ -1,1 +1,18 @@
+pwd
+ls
+ls -ltr
+cd /user/desktop
+cd ..
+vi file_name
+cat file_name
+head file_name
+cp /from/ /to/
+rm file_name
+rm -r /folder_name/
+rm /old_file_name/ /new_file_name/
 
+hadoop fs -put /from/local/ /to/hdfs/
+hadoop fs -ls -h /data/
+
+yarn appication -list
+yarn application -kill application_ID
