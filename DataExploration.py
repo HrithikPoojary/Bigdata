@@ -17,9 +17,24 @@ order_reviews_df = spark.read.csv(hdfs_path + 'olist_order_reviews_dataset.csv' 
 order_payments_df = spark.read.csv(hdfs_path + 'olist_order_payments_dataset.csv' , header=True,inferSchema=True)
 
 
-customer_df.select([col(c).isNotNull().alias(c) for c in customer_df.columns]).show()
 customer_df.columns
 
+def missing_values(df,df_name):
+    print(f"Missing Values : {df_name} ")
+    df.select([count(when(col(c).isNull(),1)).alias(c) for c in df.columns]).show()
+
+
+for x,y in df_list.items():
+    missing_values(x,y)
+
+df_lists = {'customer' : customer_df,
+            "orders"   : orders_df ,
+            "order items" : order_items_df ,
+            'products':products_df,
+            'Seller' : sellers_df,
+            'geolocation' : geolocation_df,
+            'order review' : order_reviews_df,
+            'order payment' : order_payments_df }
 
 # Duplicate values
 customer_df.groupBy('customer_city').count().filter('count>1').show()
